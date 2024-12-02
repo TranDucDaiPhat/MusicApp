@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useState, useEffect } from 'react'
 import { createContext } from 'react'
 import LaunchScreen from './app/screens/Launch'
+import Login from './app/screens/Login'
+import SignUp from './app/screens/SignUp'
 
 const Stack = createNativeStackNavigator()
 
@@ -15,6 +17,8 @@ function OutsideLayout() {
   return (
     <OutsideStack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name='Launch' component={LaunchScreen}/>
+      <Stack.Screen name='Login' component={Login}/>
+      <Stack.Screen name='SignUp' component={SignUp}/>
     </OutsideStack.Navigator>
   )
 }
