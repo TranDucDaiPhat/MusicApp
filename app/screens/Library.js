@@ -149,7 +149,7 @@ function Library ({ route, navigation }) {
             }
 
             {/* footer */}
-            <Footer navigation={navigation} active={'Library'} />
+            <Footer navigation={navigation} songs={songs} active={'Library'} />
         </View>
     )
 }

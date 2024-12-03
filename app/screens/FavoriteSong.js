@@ -61,7 +61,7 @@ function FavoriteSong ({ route, navigation}) {
             }
 
             {/* footer */}
-            <Footer navigation={navigation} />
+            <Footer navigation={navigation} songs={songs} />
         </View>
     )
 }
