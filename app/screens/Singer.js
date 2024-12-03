@@ -6,6 +6,7 @@ import { ListSongContext } from '../../App';
 import Footer from './Footer';
 import PlayingBar from './PlayingBar';
 import Song from './Song';
+import { memo } from 'react'
 
 function TrendingSinger({singer, navigation, songs, albums}) {
     const isFollow = false
@@ -215,4 +216,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Singer;
+export default memo(Singer);

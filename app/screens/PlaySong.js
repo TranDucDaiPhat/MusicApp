@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, BackHandler } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { AntDesign, Entypo, Fontisto, MaterialCommunityIcons, FontAwesome  } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider'
 import { useState, useEffect } from 'react';
@@ -11,7 +11,7 @@ import { db } from '../../FirebaseConfig';
 function PlaySong ({ route, navigation }) {
 
     const {dir, isLiked} = route.params;
-    const [currentListSong, setCurrentListSong, currentIndex, setCurrentIndex, status, setStatus, sound, setSound, userInfo, setUserInfo] = useContext(ListSongContext)
+    const [currentListSong, , currentIndex, setCurrentIndex, status, setStatus, sound, setSound, userInfo, setUserInfo] = useContext(ListSongContext)
 
     const [currentSong, setCurrentSong] = useState(currentListSong[currentIndex])
     const [duration, setDuration] = useState('0:00')
@@ -41,6 +41,22 @@ function PlaySong ({ route, navigation }) {
 
     useEffect(() => {
         loadSong(currentSong)
+        const updateRecentlySong = async () => {
+            let list = userInfo.idOfRecentlySongs
+            let index = list.findIndex((id) => id==currentSong.id)
+            if (index >= 0) {
+                list.splice(index, 1)
+            }
+            if (list.length >= 10) {
+                list.pop()
+            }
+            list.unshift(currentSong.id)
+
+            const userDoc = doc(db, "Users", userInfo.id)
+            await updateDoc(userDoc, {idOfRecentlySongs: list})
+            setUserInfo({...userInfo, idOfRecentlySongs: list})
+        }
+        updateRecentlySong()
     },[])
 
     useEffect(() => {
@@ -125,19 +141,15 @@ function PlaySong ({ route, navigation }) {
     function handleLikeSong(id) {
         setLike(!like)
         let listOfLike = userInfo.idOfLikedSongs
-        console.log(listOfLike)
         if (like) {
             listOfLike = listOfLike.filter((oldId) => oldId != id)
         } else {
             listOfLike.push(id)
         }
-        console.log(listOfLike)
         const updateUserInfo = async () => {
-            console.log(userInfo)
             const userDoc = doc(db, "Users", userInfo.id)
             await updateDoc(userDoc, {idOfLikedSongs: listOfLike})
             setUserInfo({...userInfo, idOfLikedSongs: listOfLike})
-            console.log('done!')
         }
         updateUserInfo()
     }

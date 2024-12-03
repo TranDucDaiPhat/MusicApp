@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { Entypo, } from '@expo/vector-icons';
-import { useState } from 'react';
+import { memo } from 'react'
 
 function Song ({index, listSong, navigation, dir, setCurrentListSong, setCurrentIndex, isLiked}) {
     const song = listSong[index]
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
     },
 })
   
-export default Song
+export default memo(Song) 

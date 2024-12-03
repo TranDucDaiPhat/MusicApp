@@ -3,6 +3,7 @@ import { AntDesign, Fontisto } from '@expo/vector-icons';
 import { useContext } from 'react';
 import { ListSongContext } from '../../App';
 import { Audio } from 'expo-av';
+import { memo } from 'react';
 
 function PlayingBar({song}) {
 
@@ -109,4 +110,4 @@ const styles = StyleSheet.create({
     },
   })
 
-export default PlayingBar
+export default memo(PlayingBar) 

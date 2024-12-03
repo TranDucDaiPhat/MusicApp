@@ -6,6 +6,7 @@ import { ListSongContext } from '../../App';
 import Footer from './Footer';
 import PlayingBar from './PlayingBar';
 import Song from './Song';
+import { memo } from 'react'
 
 function Topic ({ route, navigation}) {
     const {data, songs, dir, singerName} = route.params;
@@ -130,4 +131,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Topic;
+export default memo(Topic);
