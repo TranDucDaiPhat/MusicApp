@@ -36,9 +36,17 @@ const initUserData = [
     },
 ]
 
+function changeNavigate(item, navigation, songs) {
+    if (item.name == 'Bài hát') {
+        navigation.navigate('FavoriteSong',{data:item.list, songs})
+    } else if (item.name == 'Album') {
+        // navigation.navigate('FavoriteSong',{data:item.list, albums})
+    }
+}
+
 function MyFavorite({item, navigation, songs}) {
     return (
-        <TouchableOpacity style={styles.itemWrapper} onPress={() => navigation.navigate('FavoriteSong',{data:item.list, songs})}>
+        <TouchableOpacity style={styles.itemWrapper} onPress={() => changeNavigate(item, navigation, songs)}>
             {item.icon}
             <Text style={{fontSize: 16}}>{item.name}</Text>
             <Text style={{color:'gray'}}>{item.list.length}</Text>

@@ -163,7 +163,7 @@ function Singer ({ route, navigation}) {
             }
             
             {/* footer */}
-            <Footer songs={songs} navigation={navigation} />
+            <Footer songs={songs} navigation={navigation}/>
         </View>
     )
 }

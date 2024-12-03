@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native'
-import { FontAwesome, AntDesign, MaterialIcons, Entypo, } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { AntDesign, MaterialIcons, } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { ListSongContext } from '../../App';
@@ -33,7 +33,7 @@ function FavoriteSong ({ route, navigation}) {
                 </View>
 
                 <ScrollView> 
-                    <Text style={{textAlign:'center', fontSize: 21, fontWeight: 'bold'}} >{'Yêu thích'}</Text>
+                    <Text style={{textAlign:'center', fontSize: 21, fontWeight: 'bold'}} >{'Bài hát yêu thích'}</Text>
                     <Text style={{textAlign:'center', color: 'gray', fontSize: 13}} >{`${favoriteSongs.length} bài hát • Đã lưu vào thư viện`}</Text>
                     <View style={{marginVertical: 15}} />
                     {/* List song */}
@@ -47,7 +47,7 @@ function FavoriteSong ({ route, navigation}) {
                                         key={song.id}
                                         setCurrentListSong={setCurrentListSong}
                                         setCurrentIndex={setCurrentIndex}
-                                        isLiked={userInfo.idOfLikedSongs.some((id) => id==song.id)}
+                                        isLiked={true}
                                     />
                         })
                     }

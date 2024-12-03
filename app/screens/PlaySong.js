@@ -139,19 +139,33 @@ function PlaySong ({ route, navigation }) {
     }
 
     function handleLikeSong(id) {
-        setLike(!like)
-        let listOfLike = userInfo.idOfLikedSongs
+        setLike(!like);
+    
+        let listOfLike = [...userInfo.idOfLikedSongs];  
+    
         if (like) {
-            listOfLike = listOfLike.filter((oldId) => oldId != id)
+            listOfLike = listOfLike.filter((oldId) => oldId !== id);
         } else {
-            listOfLike.push(id)
+            listOfLike.push(id);
         }
+    
         const updateUserInfo = async () => {
-            const userDoc = doc(db, "Users", userInfo.id)
-            await updateDoc(userDoc, {idOfLikedSongs: listOfLike})
-            setUserInfo({...userInfo, idOfLikedSongs: listOfLike})
-        }
-        updateUserInfo()
+            const userDoc = doc(db, "Users", userInfo.id);
+    
+            try {
+                await updateDoc(userDoc, {
+                    idOfLikedSongs: listOfLike,
+                });
+    
+                setUserInfo({
+                    ...userInfo,
+                    idOfLikedSongs: listOfLike, 
+                });
+            } catch (error) {
+                console.error("Error updating user info:", error);
+            }
+        };
+        updateUserInfo();
     }
 
     return (
