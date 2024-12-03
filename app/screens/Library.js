@@ -6,6 +6,7 @@ import { ListSongContext } from '../../App';
 import Footer from './Footer';
 import PlayingBar from './PlayingBar';
 import Song from './Song';
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
 const initUserData = [
     {
@@ -84,6 +85,9 @@ function Library ({ route, navigation }) {
                         <AntDesign name="left" size={27} color="gray" />
                     </TouchableOpacity>
                     <Text style={{fontSize: 24, fontWeight: 700, marginLeft: 15}}>{'Thư viện'}</Text>
+                    <TouchableOpacity style={{flex:1}} onPress={() => FIREBASE_AUTH.signOut()}>
+                        <Text style={{textAlign:'right', fontSize: 16, color:'gray'}}>{'Đăng xuất'}</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <ScrollView>

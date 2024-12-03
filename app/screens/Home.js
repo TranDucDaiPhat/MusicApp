@@ -83,46 +83,33 @@ function TrendingSinger({singer, navigation, songs, albums, listSinger}) {
     )
 }
 
-
-
 function Home({ navigation }) {
     const [topics, setTopics] = useState([])
     const [songs, setSongs] = useState([])
     const [albums, setAlbums] = useState([])
     const [singers, setSingers] = useState([])
 
+    console.log('Home')
+
     const [currentListSong, setCurrentListSong, currentIndex, setCurrentIndex, , , , , userInfo] = useContext(ListSongContext)
     
     useEffect(() => {
-        fetch('https://672eeca7229a881691f14f5f.mockapi.io/song')
-            .then((response) => response.json())
-            .then((data) => {
-                setSongs(data)
-                // console.log(data)
+        const fetchSongs = fetch('https://672eeca7229a881691f14f5f.mockapi.io/song').then(response => response.json());
+        const fetchTopics = fetch('https://672eeca7229a881691f14f5f.mockapi.io/topic').then(response => response.json());
+        const fetchAlbums = fetch('https://673e35fb0118dbfe860a85cc.mockapi.io/album').then(response => response.json());
+        const fetchSingers = fetch('https://673e35fb0118dbfe860a85cc.mockapi.io/singer').then(response => response.json());
+    
+        // Dùng Promise.all để đợi tất cả các fetch đồng thời
+        Promise.all([fetchSongs, fetchTopics, fetchAlbums, fetchSingers])
+            .then(([songsData, topicsData, albumsData, singersData]) => {
+                // Sau khi tất cả các request hoàn thành, cập nhật state một lần
+                setSongs(songsData);
+                setTopics(topicsData);
+                setAlbums(albumsData);
+                setSingers(singersData);
             })
-            .catch((error) => console.log(error))
-        fetch('https://672eeca7229a881691f14f5f.mockapi.io/topic')
-            .then((response) => response.json())
-            .then((data) => {
-                setTopics(data)
-                // console.log(data)
-            })
-            .catch((error) => console.log(error))
-        fetch('https://673e35fb0118dbfe860a85cc.mockapi.io/album')
-            .then((response) => response.json())
-            .then((data) => {
-                setAlbums(data)
-                // console.log(data)
-            })
-            .catch((error) => console.log(error))
-        fetch('https://673e35fb0118dbfe860a85cc.mockapi.io/singer')
-            .then((response) => response.json())
-            .then((data) => {
-                setSingers(data)
-                // console.log(data)
-            })
-            .catch((error) => console.log(error))
-    },[])
+            .catch((error) => console.log(error));
+    }, []);
 
     return (
         <View style={styles.container}>
